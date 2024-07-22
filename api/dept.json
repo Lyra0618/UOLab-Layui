@@ -1,0 +1,68 @@
+{
+    "code": 0,
+    "msg": "",
+    "count": 100,
+    "data": [
+            {
+                "id": "20001",
+                "collegeName": "浙江大学",
+                "collegeCode": "ZJU001",
+                "remark": "浙江大学是中国顶尖综合性大学之一，位于浙江省杭州市。"
+            },
+            {
+                "id": "20002",
+                "collegeName": "复旦大学",
+                "collegeCode": "FDU002",
+                "remark": "复旦大学是中国著名的研究型大学，位于上海市。"
+            },
+            {
+                "id": "20003",
+                "collegeName": "北京大学",
+                "collegeCode": "PKU003",
+                "remark": "北京大学是中国历史最悠久的综合性大学，位于北京市。"
+            },
+            {
+                "id": "20004",
+                "collegeName": "清华大学",
+                "collegeCode": "THU004",
+                "remark": "清华大学是中国顶尖理工科大学之一，位于北京市。"
+            },
+            {
+                "id": "20005",
+                "collegeName": "南京大学",
+                "collegeCode": "NJU005",
+                "remark": "南京大学是中国著名的综合性大学，位于江苏省南京市。"
+            },
+            {
+                "id": "20006",
+                "collegeName": "华中科技大学",
+                "collegeCode": "HUST006",
+                "remark": "华中科技大学是中国重点建设的综合性研究型大学，位于湖北省武汉市。"
+            },
+            {
+                "id": "20007",
+                "collegeName": "中山大学",
+                "collegeCode": "SYSU007",
+                "remark": "中山大学是中国著名的综合性大学，位于广东省广州市。"
+            },
+            {
+                "id": "20008",
+                "collegeName": "四川大学",
+                "collegeCode": "SCU008",
+                "remark": "四川大学是中国西南地区的综合性大学，位于四川省成都市。"
+            },
+            {
+                "id": "20009",
+                "collegeName": "山东大学",
+                "collegeCode": "SDU009",
+                "remark": "山东大学是中国历史悠久的综合性大学，位于山东省济南市。"
+            },
+            {
+                "id": "20010",
+                "collegeName": "厦门大学",
+                "collegeCode": "XMU010",
+                "remark": "厦门大学是中国著名的综合性大学，位于福建省厦门市。"
+            }
+        ]
+    }
+

@@ -1,0 +1,107 @@
+{
+  "code": 0,
+  "msg": "",
+  "count": 10,
+  "data": [
+    {
+      "id": 1,
+      "category": "编程竞赛",
+      "year": "2023",
+      "title": "全国大学生编程大赛",
+      "leader": "张三",
+      "members": "李四,王五",
+      "award": "一等",
+      "mentor": "李老师"
+    },
+    {
+      "id": 2,
+      "category": "数学竞赛",
+      "year": "2022",
+      "title": "全国大学生数学竞赛",
+      "leader": "李四",
+      "members": "张三,王五",
+      "award": "特等",
+      "mentor": "张老师"
+    },
+    {
+      "id": 3,
+      "category": "物理竞赛",
+      "year": "2021",
+      "title": "全国大学生物理竞赛",
+      "leader": "王五",
+      "members": "张三,李四",
+      "award": "二等",
+      "mentor": "王老师"
+    },
+    {
+      "id": 4,
+      "category": "化学竞赛",
+      "year": "2020",
+      "title": "全国大学生化学竞赛",
+      "leader": "赵六",
+      "members": "孙七,周八",
+      "award": "三等",
+      "mentor": "赵老师"
+    },
+    {
+      "id": 5,
+      "category": "编程竞赛",
+      "year": "2019",
+      "title": "全国大学生编程大赛",
+      "leader": "孙七",
+      "members": "李四,王五",
+      "award": "优秀奖",
+      "mentor": "孙老师"
+    },
+    {
+      "id": 6,
+      "category": "数学竞赛",
+      "year": "2018",
+      "title": "全国大学生数学竞赛",
+      "leader": "周八",
+      "members": "赵六,张三",
+      "award": "无",
+      "mentor": "周老师"
+    },
+    {
+      "id": 7,
+      "category": "物理竞赛",
+      "year": "2017",
+      "title": "全国大学生物理竞赛",
+      "leader": "吴九",
+      "members": "孙七,李四",
+      "award": "特等",
+      "mentor": "吴老师"
+    },
+    {
+      "id": 8,
+      "category": "化学竞赛",
+      "year": "2016",
+      "title": "全国大学生化学竞赛",
+      "leader": "郑十",
+      "members": "吴九,王五",
+      "award": "一等",
+      "mentor": "郑老师"
+    },
+    {
+      "id": 9,
+      "category": "编程竞赛",
+      "year": "2015",
+      "title": "全国大学生编程大赛",
+      "leader": "王五",
+      "members": "张三,李四",
+      "award": "二等",
+      "mentor": "王老师"
+    },
+    {
+      "id": 10,
+      "category": "数学竞赛",
+      "year": "2014",
+      "title": "全国大学生数学竞赛",
+      "leader": "李四",
+      "members": "王五,张三",
+      "award": "三等",
+      "mentor": "李老师"
+    }
+  ]
+}
