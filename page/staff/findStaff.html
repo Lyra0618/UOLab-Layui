@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"> <!-- 设置字符编码为UTF-8 -->
+    <title>查询成员信息</title> <!-- 网页标题 -->
+    <meta name="renderer" content="webkit"> <!-- 优先使用webkit内核渲染 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> <!-- 使IE以最新模式渲染页面 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"> <!-- 设置视口 -->
+    <link rel="stylesheet" href="../../lib/layui-v2.6.3/css/layui.css" media="all"> <!-- 引入Layui的CSS文件 -->
+    <link rel="stylesheet" href="../../css/public.css" media="all"> <!-- 引入公共CSS文件 -->
+</head>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+
+        <!-- 搜索信息表单 -->
+        <fieldset class="table-search-fieldset">
+            <legend>搜索信息</legend>
+            <div style="margin: 10px 10px 10px 10px">
+                <form class="layui-form layui-form-pane" action="">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">姓名</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="name" autocomplete="off" class="layui-input" placeholder="请输入姓名"> <!-- 姓名输入框 -->
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">学号</label>
+                            <div class="layui-input-inline">
+                                <input type="number" name="number" autocomplete="off" class="layui-input" placeholder="请输入学号"> <!-- 学号输入框 -->
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">性别</label>
+                            <div class="layui-input-inline">
+                                <input type="radio" name="sex" value="男" title="男"> <!-- 性别单选按钮 -->
+                                <input type="radio" name="sex" value="女" title="女"> <!-- 性别单选按钮 -->
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">年级</label>
+                            <div class="layui-input-inline">
+                                <input id="grade" type="text" name="grade" placeholder="请选择年级" class="layui-input"> <!-- 年级输入框 -->
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">籍贯</label>
+                            <div class="layui-input-inline">
+                                <select name="native">
+                                    <option value="">请选择省</option>
+                                    <option value="浙江">浙江省</option>
+                                    <option value="江西">江西省</option>
+                                    <option value="福建">福建省</option>
+                                    <option value="山西">山西省</option>
+                                </select> <!-- 籍贯省选择框 -->
+                            </div>
+                            <div class="layui-input-inline">
+                                <select name="native2">
+                                    <option value="">请选择市</option>
+                                    <option value="杭州">杭州</option>
+                                    <option value="宁波">宁波</option>
+                                    <option value="温州">温州</option>
+                                    <option value="太原">太原</option>
+                                </select> <!-- 籍贯市选择框 -->
+                            </div>
+                            <div class="layui-input-inline">
+                                <select name="native3">
+                                    <option value="">请选择县/区</option>
+                                    <option value="西湖区">西湖区</option>
+                                    <option value="余杭区">余杭区</option>
+                                    <option value="拱墅区">临安市</option>
+                                    <option value="尖草坪区">尖草坪区</option>
+                                    <option value="迎泽区">迎泽区</option>
+                                </select> <!-- 籍贯县/区选择框 -->
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">电话</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="phone" autocomplete="off" class="layui-input" placeholder="请输入电话号"> <!-- 电话输入框 -->
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">院系</label>
+                            <div class="layui-input-inline">
+                                <select name="college" lay-filter="college">
+                                    <option value="">--请选择院系--</option>
+                                    <option value="0">中北大学</option>
+                                    <option value="1">太原科技大学</option>
+                                    <option value="2">太原工业学院</option>
+                                    <option value="3">太原理工大学</option>
+                                    <option value="4">山西财经大学</option>
+                                </select> <!-- 院系选择框 -->
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">专业</label>
+                            <div class="layui-input-inline">
+                                <select name="major" lay-filter="major">
+                                    <option value="">--请选择专业--</option>
+                                    <option value="0">软件工程</option>
+                                    <option value="1">计算机科学与技术</option>
+                                    <option value="2">电子信息</option>
+                                </select> <!-- 专业选择框 -->
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">校内职务</label>
+                            <div class="layui-input-inline">
+                                <select name="work" lay-filter="work">
+                                    <option value="">--请选择职务--</option>
+                                    <option value="0">班干部</option>
+                                    <option value="1">学生会干部</option>
+                                    <option value="2">社团干部</option>
+                                    <option value="3">无</option>
+                                </select> <!-- 校内职务选择框 -->
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">加入日期</label>
+                            <div class="layui-input-inline">
+                                <input id="joinDate" type="text" name="date" placeholder="请选择日期" class="layui-input"> <!-- 加入日期输入框 -->
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">用户状态</label>
+                            <div class="layui-input-inline">
+                                <select name="status" lay-filter="status">
+                                    <option value="">--请选择状态--</option>
+                                    <option value="0">正常</option>
+                                    <option value="1">退出</option>
+                                    <option value="2">毕业</option>
+                                </select> <!-- 用户状态选择框 -->
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label" style="width: 150px">担任的实验室职务</label>
+                            <div class="layui-input-block" style="width: 100%">
+                                <input type="radio" name="lab" value="秘书长" title="秘书长"> <!-- 实验室职务单选按钮 -->
+                                <input type="radio" name="lab" value="副秘书长" title="副秘书长"> <!-- 实验室职务单选按钮 -->
+                                <input type="radio" name="lab" value="技术总监" title="技术总监"> <!-- 实验室职务单选按钮 -->
+                                <input type="radio" name="lab" value="项目经理" title="项目经理"> <!-- 实验室职务单选按钮 -->
+                                <input type="radio" name="lab" value="组长" title="组长"> <!-- 实验室职务单选按钮 -->
+                            </div>
+                        </div>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="layui-inline">
+                            <button type="submit" class="layui-btn" lay-submit lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索</button> <!-- 搜索按钮 -->
+                        </div>
+                        <div class="layui-inline">
+                            <button type="reset" class="layui-btn layui-btn-primary"><i class="layui-icon layui-icon-refresh"></i> 重 置</button> <!-- 重置按钮 -->
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </fieldset>
+        <!--自动生成序号模板-->
+        <script type="text/html" id="increment">
+            {{d.LAY_TABLE_INDEX+1}}
+        </script>
+        <!--工具栏模板-->
+        <script type="text/html" id="toolbarDemo">
+            <div class="layui-btn-container">
+                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 添加 </button> <!-- 添加按钮 -->
+                <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 批量删除 </button> <!-- 批量删除按钮 -->
+            </div>
+        </script>
+
+        <!--表格模板-->
+        <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+
+        <!--操作列模板-->
+        <script type="text/html" id="currentTableBar">
+            <a class="layui-btn layui-btn-xs data-count-edit" lay-event="detail">查看详情</a> <!-- 查看详情按钮 -->
+            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">修改</a> <!-- 修改按钮 -->
+            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a> <!-- 删除按钮 -->
+        </script>
+
+    </div>
+</div>
+<script src="../../lib/layui-v2.6.3/layui.js" charset="utf-8"></script> <!-- 引入Layui的JS文件 -->
+<script>
+    layui.use(['form', 'table', 'laydate'], function () {
+        var $ = layui.jquery, // 引入jQuery
+            form = layui.form, // 引入表单模块
+            laydate = layui.laydate, // 引入日期模块
+            table = layui.table; // 引入表格模块
+
+        // 年选择器
+        laydate.render({
+            elem: '#grade',
+            type: 'year' // 选择器类型为年
+        });
+        laydate.render({
+            elem: '#joinDate' // 绑定加入日期输入框
+        });
+
+        // 渲染表格
+        table.render({
+            elem: '#currentTableId',
+            url: '../../api/staff.json', // 数据接口
+            toolbar: '#toolbarDemo', // 工具栏模板
+            defaultToolbar: ['filter', 'exports', 'print', {
+                title: '提示',
+                layEvent: 'LAYTABLE_TIPS',
+                icon: 'layui-icon-tips'
+            }],
+            cols: [[
+                {type: "checkbox", width: 50},
+                {field: "increment", width: 50, title: "序号", templet: '#increment', align: 'center'}, // 序号列
+                {field: 'name', width: 80, title: '姓名', align: 'center'}, // 姓名列
+                {field: 'number', width: 80, title: '学号', align: 'center'}, // 学号列
+                {field: 'sex', width: 60, title: '性别', align: 'center'}, // 性别列
+                {field: 'grade', width: 80, title: '年级', sort: true, align: 'center'}, // 年级列
+                {field: 'native', width: 120, title: '籍贯', align: 'center'}, // 籍贯列
+                {field: 'phone', width: 120, title: '手机号码', align: 'center'}, // 手机号码列
+                {field: 'college', width: 130, title: '院系', align: 'center'}, // 院系列
+                {field: 'major', width: 130, title: '专业', align: 'center'}, // 专业列
+                {field: 'work', width: 130, title: '校内职务', align: 'center'}, // 校内职务列
+                {field: 'date', width: 120, title: '加入日期', align: 'center'}, // 加入日期列
+                {field: 'status', width: 90, title: '用户状态', align: 'center'}, // 用户状态列
+                {field: 'lab', width: 100, title: '实验室职务', align: 'center'}, // 实验室职务列
+                {field: 'remark', width: 150, title: '备注信息', align: 'center'}, // 备注信息列
+                {title: '操作', fixed: 'right', minWidth: 220, toolbar: '#currentTableBar', align: "center"} // 操作列
+            ]],
+            limits: [10, 15, 20, 25, 50, 100], // 每页显示的数量
+            limit: 15, // 默认每页显示的数量
+            page: true // 开启分页
+        });
+
+        // 监听搜索操作
+        form.on('submit(data-search-btn)', function (data) {
+            // 将搜索表单数据转换为JSON字符串
+            var result = JSON.stringify(data.field);
+            // 弹出包含搜索结果的提示框
+            layer.alert(result, {
+                title: '最终的搜索信息'  // 提示框标题
+            });
+
+            // 执行表格重载，重新加载数据
+            table.reload('currentTableId', {
+                page: {
+                    curr: 1 // 重新从第 1 页开始
+                },
+                where: {
+                    searchParams: result // 将搜索条件传递给数据接口
+                }
+            }, 'data');
+
+            return false; // 阻止表单提交
+        });
+
+        /**
+         * toolbar监听事件
+         */
+        table.on('toolbar(currentTableFilter)', function (obj) {
+            // 如果事件是'add'，即添加操作
+            if (obj.event === 'add') {
+                // 打开一个新的layer窗口
+                var index = layer.open({
+                    title: '添加成员信息',  // 窗口标题
+                    type: 2,  // 窗口类型：iframe
+                    shade: 0.2,  // 遮罩透明度
+                    maxmin: true,  // 允许最大化和最小化
+                    shadeClose: true,  // 点击遮罩关闭窗口
+                    area: ['85%', '85%'],  // 窗口大小
+                    content: 'addStaff.html', // 添加成员信息的页面
+                });
+                // 当窗口大小改变时，调整layer窗口大小
+                $(window).on("resize", function () {
+                    layer.full(index);
+                });
+            }
+            // 如果事件是'delete'，即删除操作
+            else if (obj.event === 'delete') {
+                // 获取表格选中的数据
+                var checkStatus = table.checkStatus('currentTableId'),
+                    data = checkStatus.data;
+                // 弹出包含选中数据的alert窗口
+                layer.alert(JSON.stringify(data));
+            }
+        });
+
+// 监听表格复选框选择事件
+        table.on('checkbox(currentTableFilter)', function (obj) {
+            // 在控制台打印选择的对象信息
+            console.log(obj);
+        });
+
+// 监听表格工具栏操作
+        table.on('tool(currentTableFilter)', function (obj) {
+            // 获取当前行数据
+            var data = obj.data;
+            // 如果事件是'detail'，即查看详情操作
+            if (obj.event === 'detail') {
+                // 打开一个新的layer窗口
+                var index = layer.open({
+                    title: '查看详情',  // 窗口标题
+                    type: 2,  // 窗口类型：iframe
+                    shade: 0.2,  // 遮罩透明度
+                    maxmin: true,  // 允许最大化和最小化
+                    shadeClose: true,  // 点击遮罩关闭窗口
+                    area: ['85%', '85%'],  // 窗口大小
+                    content: 'staffDetail.html', // 查看详情的页面
+                });
+                // 当窗口大小改变时，调整layer窗口大小
+                $(window).on("resize", function () {
+                    layer.full(index);
+                });
+                return false; // 阻止默认行为
+            }
+            // 如果事件是'edit'，即修改操作
+            else if (obj.event === 'edit') {
+                // 打开一个新的layer窗口
+                var index = layer.open({
+                    title: '修改成员信息',  // 窗口标题
+                    type: 2,  // 窗口类型：iframe
+                    shade: 0.2,  // 遮罩透明度
+                    maxmin: true,  // 允许最大化和最小化
+                    shadeClose: true,  // 点击遮罩关闭窗口
+                    area: ['85%', '85%'],  // 窗口大小
+                    content: 'editStaff.html', // 修改成员信息的页面
+                });
+                // 当窗口大小改变时，调整layer窗口大小
+                $(window).on("resize", function () {
+                    layer.full(index);
+                });
+                return false; // 阻止默认行为
+            }
+            // 如果事件是'delete'，即删除操作
+            else if (obj.event === 'delete') {
+                // 弹出确认框，确认删除操作
+                layer.confirm('真的删除行么', function (index) {
+                    obj.del(); // 删除行数据
+                    layer.close(index); // 关闭确认框
+                });
+            }
+        });
+
+
+    });
+</script>
+
+</body>
+</html>

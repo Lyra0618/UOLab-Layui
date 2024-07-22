@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>数据统计</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <link rel="stylesheet" href="../../lib/layui-v2.6.3/css/layui.css" media="all">
+  <link rel="stylesheet" href="../../css/public.css" media="all">
+  <script src="../../js/echarts.js"></script>
+  <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+</head>
+<body>
+<div class="layuimini-container">
+  <div class="layuimini-main">
+    <div class="layui-row layui-col-space15" style="margin-top: 5px;">
+      <div class="layui-col-md12">
+        <div class="layui-card" style="box-shadow: 0px 0px 10px 3px gainsboro; border-radius: 20px;">
+          <div class="layui-card-header" style="font-weight: bold; font-size: 18px;"><i class="layui-icon layui-icon-export"></i>&nbsp;&nbsp;学分统计导出</div>
+          <div class="layui-card-body">
+            <div class="layui-inline">
+              <label class="layui-form-label">选择时间</label>
+              <div class="layui-input-inline">
+                <input type="text" class="layui-input" id="dateRange" placeholder="请选择年月范围">
+              </div>
+            </div>
+            <button class="layui-btn" id="searchBtn">搜索</button>
+            <button class="layui-btn layui-btn-normal" id="exportBtn">导出Excel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="layui-row layui-col-space15">
+      <div class="layui-col-md6">
+        <div class="layui-card" style="box-shadow: 0px 0px 10px 3px gainsboro; border-radius: 20px;">
+          <div class="layui-card-header" style="font-weight: bold; font-size: 18px;"><i class="fa fa-bar-chart"></i>&nbsp;&nbsp;柱状图</div>
+          <div class="layui-card-body">
+            <div id="barChart" style="width: 100%; height: 400px;"></div>
+          </div>
+        </div>
+      </div>
+      <div class="layui-col-md6">
+        <div class="layui-card" style="box-shadow: 0px 0px 10px 3px gainsboro; border-radius: 20px;">
+          <div class="layui-card-header" style="font-weight: bold; font-size: 18px;"><i class="fa fa-pie-chart"></i>&nbsp;&nbsp;饼图</div>
+          <div class="layui-card-body">
+            <div id="pieChart" style="width: 100%; height: 400px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="layui-row layui-col-space15" style="margin-top: 5px;">
+      <div class="layui-col-md12">
+        <div class="layui-card" style="box-shadow: 0px 0px 10px 3px gainsboro; border-radius: 20px;">
+          <div class="layui-card-header" style="font-weight: bold; font-size: 18px;"><i class="fa fa-line-chart"></i>&nbsp;&nbsp;折线图</div>
+          <div class="layui-card-body">
+            <div id="lineChart" style="width: 100%; height: 400px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <table class="layui-hide" id="creditTable" lay-filter="creditTableFilter"></table>
+  </div>
+
+
+</div>
+
+<script src="../../lib/layui-v2.6.3/layui.js" charset="utf-8"></script>
+
+<!-- 引入xlsx库，用于将数据导出为Excel文件 -->
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.17.1/dist/xlsx.full.min.js"></script>
+<!-- 引入FileSaver.js库，用于在浏览器中保存文件 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
+<script>
+  // 定义全局变量
+  var $;
+  var creditData = {
+    "code": 0,
+    "msg": "",
+    "count": 10,
+    "data": [
+      { "id": 1, "name": "张三", "number": "202201", "grade": "2022", "college": "中北大学", "score": 1, "reason": "公开课", "acquisition_date": "2023-01", "entry_date": "2023-07-01", "entry_person": "自动生成", "remark": "优秀表现" },
+      { "id": 2, "name": "李四", "number": "202202", "grade": "2022", "college": "太原科大", "score": 4, "reason": "比赛获奖", "acquisition_date": "2023-02", "entry_date": "2023-07-01", "entry_person": "自动生成", "remark": "团队合作" },
+      { "id": 3, "name": "王五", "number": "202203", "grade": "2022", "college": "太原工业", "score": 2, "reason": "论文发表", "acquisition_date": "2023-03", "entry_date": "2023-07-01", "entry_person": "自动生成", "remark": "科研成果" },
+      { "id": 4, "name": "赵六", "number": "202204", "grade": "2022", "college": "太原理工", "score": 5, "reason": "公开课", "acquisition_date": "2023-04", "entry_date": "2023-07-01", "entry_person": "自动生成", "remark": "积极参与" },
+      { "id": 5, "name": "孙七", "number": "202205", "grade": "2022", "college": "山西财经", "score": 4, "reason": "比赛获奖", "acquisition_date": "2023-05", "entry_date": "2023-07-01", "entry_person": "自动生成", "remark": "团队精神" },
+      { "id": 6, "name": "周八", "number": "202206", "grade": "2022", "college": "中北大学", "score": 4, "reason": "科研项目", "acquisition_date": "2023-06", "entry_date": "2023-07-01", "entry_person": "自动生成", "remark": "学术进步" },
+      { "id": 7, "name": "吴九", "number": "202207", "grade": "2022", "college": "太原科大", "score": 5, "reason": "科研项目", "acquisition_date": "2023-07", "entry_date": "2023-07-01", "entry_person": "自动生成", "remark": "积极表现" },
+      { "id": 8, "name": "郑十", "number": "202208", "grade": "2022", "college": "太原工业", "score": 4, "reason": "比赛获奖", "acquisition_date": "2023-08", "entry_date": "2023-07-01", "entry_person": "自动生成", "remark": "团队协作" },
+      { "id": 9, "name": "王十一", "number": "202209", "grade": "2022", "college": "太原理工", "score": 1.5, "reason": "论文发表", "acquisition_date": "2023-09", "entry_date": "2023-07-01", "entry_person": "自动生成", "remark": "学术研究" },
+      { "id": 10, "name": "李十二", "number": "202210", "grade": "2022", "college": "山西财经", "score": 5, "reason": "公开课", "acquisition_date": "2023-10", "entry_date": "2023-07-01", "entry_person": "自动生成", "remark": "积极参与" }
+    ]
+  };
+
+  layui.use(['form', 'laydate', 'table'], function() {
+    $ = layui.jquery;
+    var form = layui.form,
+            laydate = layui.laydate,
+            table = layui.table;
+
+    // 日期选择器
+    laydate.render({
+      elem: '#dateRange',
+      type: 'month',
+      range: true
+    });
+
+    // 渲染表格
+    table.render({
+      elem: '#creditTable',
+      cols: [[
+        {field: 'number', title: '学号'},
+        {field: 'name', title: '姓名'},
+        {field: 'college', title: '院系'},
+        {field: 'score', title: '分数'},
+        {field: 'reason', title: '事由'}
+      ]],
+      data: [],
+      page: true
+    });
+
+    // 搜索按钮事件
+    $('#searchBtn').on('click', function() {
+      // 获取日期范围的值
+      var dateRange = $('#dateRange').val();
+
+      // 如果未选择日期范围，则弹出提示
+      if (!dateRange) {
+        layer.alert('请选择时间范围');
+        return;
+      }
+
+      // 将选定的时间范围拆分为起始日期和结束日期
+      var dateParts = dateRange.split(' - ');
+      var startDate = new Date(dateParts[0]);
+      var endDate = new Date(dateParts[1]);
+
+      // 使用Array.prototype.filter方法过滤数据
+      var filteredData = creditData.data.filter(function(item) {
+        // 将数据项的acquisition_date转换为日期对象
+        var acquisitionDate = new Date(item.acquisition_date + '-01');
+        // 仅保留在起始日期和结束日期之间的数据项
+        return acquisitionDate >= startDate && acquisitionDate <= endDate;
+      });
+
+      // 重新加载表格数据，更新展示内容
+      table.reload('creditTable', {
+        data: filteredData
+      });
+
+      // 调用图表渲染函数，根据过滤后的数据重新渲染图表
+      renderCharts(filteredData);
+    });
+
+    // 初始化渲染图表
+    renderCharts(creditData.data);
+
+    // 导出按钮事件
+    $('#exportBtn').on('click', function() {
+      // 获取当前表格的数据缓存
+      var tableData = table.cache['creditTable'];
+      // 将表格数据转换为Excel表格所需的工作表格式
+      var ws = XLSX.utils.json_to_sheet(tableData);
+      // 创建一个新的工作簿
+      var wb = XLSX.utils.book_new();
+      // 将工作表添加到工作簿中，命名为'学分统计'
+      XLSX.utils.book_append_sheet(wb, ws, '学分统计');
+      // 将工作簿写入二进制数组
+      var wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+      // 使用FileSaver保存文件，文件名为'学分统计.xlsx'
+      saveAs(new Blob([wbout], { type: 'application/octet-stream' }), '学分统计.xlsx');
+    });
+
+
+  });
+
+  // 图表渲染函数
+  function renderCharts(data) {
+    // 初始化对象用于存储各学院的学分统计
+    var colleges = {};
+    // 初始化对象用于存储各事由的统计
+    var reasons = {};
+    // 初始化对象用于存储各日期的学分统计
+    var dates = {};
+
+    // 遍历数据数组，统计学院、事由和日期的数据
+    data.forEach(function(item) {
+      // 学院统计：如果当前学院不存在，则初始化为0
+      if (!colleges[item.college]) colleges[item.college] = 0;
+      // 将当前数据项的学分加到对应的学院统计中
+      colleges[item.college] += item.score;
+
+      // 事由统计：如果当前事由不存在，则初始化为0
+      if (!reasons[item.reason]) reasons[item.reason] = 0;
+      // 将当前数据项的事由计数加1
+      reasons[item.reason] += 1;
+
+      // 日期统计：如果当前日期不存在，则初始化为0
+      if (!dates[item.acquisition_date]) dates[item.acquisition_date] = 0;
+      // 将当前数据项的学分加到对应的日期统计中
+      dates[item.acquisition_date] += item.score;
+    });
+
+    // 准备柱状图数据，将学院统计对象转换为数组
+    var barData = [];
+    for (var college in colleges) {
+      // 将每个学院的名称和对应的学分值放入数组中
+      barData.push({ name: college, value: colleges[college] });
+    }
+
+    // 准备饼图数据，将事由统计对象转换为数组
+    var pieData = [];
+    for (var reason in reasons) {
+      // 将每个事由的名称和对应的次数放入数组中
+      pieData.push({ name: reason, value: reasons[reason] });
+    }
+
+    // 准备折线图数据，将日期统计对象转换为数组
+    var lineData = [];
+    for (var date in dates) {
+      // 将每个日期和对应的学分值放入数组中
+      lineData.push([date, dates[date]]);
+    }
+    // 按日期排序，从早到晚排列
+    lineData.sort(function(a, b) { return new Date(a[0]) - new Date(b[0]); });
+
+    // 获取柱状图的DOM元素并初始化ECharts实例
+    var barChart = echarts.init(document.getElementById('barChart'));
+    // 设置柱状图的配置项
+    barChart.setOption({
+      // 设置图表标题
+      title: { text: '各学院学分统计' },
+      // 启用提示工具
+      tooltip: {},
+      // 设置x轴数据为学院名称
+      xAxis: { data: barData.map(function(item) { return item.name; }) },
+      // 设置y轴
+      yAxis: {},
+      // 设置图表的数据系列
+      series: [{
+        name: '学分', // 数据系列名称
+        type: 'bar', // 图表类型为柱状图
+        data: barData.map(function(item) { return item.value; }) // 数据值
+      }]
+    });
+
+    // 获取饼图的DOM元素并初始化ECharts实例
+    var pieChart = echarts.init(document.getElementById('pieChart'));
+    // 设置饼图的配置项
+    pieChart.setOption({
+      // 设置图表标题
+      title: { text: '事由分布' },
+      // 设置提示工具触发方式为item
+      tooltip: { trigger: 'item' },
+      // 设置图表的数据系列
+      series: [{
+        name: '事由', // 数据系列名称
+        type: 'pie', // 图表类型为饼图
+        radius: '50%', // 饼图的半径
+        data: pieData // 数据值
+      }]
+    });
+
+    // 获取折线图的DOM元素并初始化ECharts实例
+    var lineChart = echarts.init(document.getElementById('lineChart'));
+    // 设置折线图的配置项
+    lineChart.setOption({
+      // 设置图表标题
+      title: { text: '学分时间分布' },
+      // 设置提示工具触发方式为轴触发
+      tooltip: { trigger: 'axis' },
+      // 设置x轴为类别类型，并设置x轴数据为日期
+      xAxis: { type: 'category', data: lineData.map(function(item) { return item[0]; }) },
+      // 设置y轴为数值类型
+      yAxis: { type: 'value' },
+      // 设置图表的数据系列
+      series: [{
+        name: '学分', // 数据系列名称
+        type: 'line', // 图表类型为折线图
+        data: lineData.map(function(item) { return item[1]; }) // 数据值
+      }]
+    });
+  }
+
+</script>
+</body>
+</html>
